@@ -1,0 +1,66 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@* <a asp-action="SecondPage">
+       2.Sayfa
+</a> *@
+<h4>Index 1</h4>
+<p>
+    <span>Singleton: </span>@ViewBag.guidSingleton
+</p>
+<p>
+    <span>Scoped: </span>@ViewBag.guidScoped
+</p>
+<p>
+    <span>Transient: </span>@ViewBag.guidTransient
+</p>
+
+<br />
+<br />
+
+<h4>Index 2</h4>
+<p>
+    <span>Singleton2: </span>@ViewBag.guidSingleton2
+</p>
+<p>
+    <span>Scoped2: </span>@ViewBag.guidScoped2
+</p>
+<p>
+    <span>Transient2: </span>@ViewBag.guidTransient2
+</p>
+
+<br />
+<br />
+
+<h4>Ajax</h4>
+<p>
+    <span>Singleton: </span><span id="singleton"></span>
+</p>
+<p>
+    <span>Scoped: </span><span id="scoped"></span>
+</p>
+<p>
+    <span>Transient: </span><span id="transient"></span>
+</p>
+
+
+<script>
+    $(document).ready(function () {
+        getData();
+    });
+
+    function getData() {
+        $.ajax({
+            url: "Home/GetGuids",
+            type: 'GET',
+            dataType: 'json', // added data type
+            success: function (res) {
+                console.log(res);
+                $('#singleton').text(res.guidSingleton);
+                $('#scoped').text(res.guidScoped);
+                $('#transient').text(res.guidTransient);
+            }
+        });
+    }
+</script>
